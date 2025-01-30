@@ -1,4 +1,7 @@
 
+using IdentityCoreProject.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace IdentityCoreProject
 {
     public class Program
@@ -10,7 +13,10 @@ namespace IdentityCoreProject
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddDbContext<ApplicationDbContext>(options=>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer"));
+            });
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
